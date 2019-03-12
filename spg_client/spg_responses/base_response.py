@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import exceptions
+from spg_client import exceptions
 
 FIELDS_3DS_RESPONSE = ['ACSUrl', 'PaReq', 'ThreeDSKey']
 

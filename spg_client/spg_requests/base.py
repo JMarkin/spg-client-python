@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import abc
 
-from utils import is_pan_valid
+from spg_client.utils import is_pan_valid
 
 
 class BaseRequest:

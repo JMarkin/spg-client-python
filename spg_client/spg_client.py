@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
-# TODO python2 compatible
 import copy
 import requests
 
 from requests import exceptions as requests_exceptions
 
-import exceptions
-from utils import parse_xml, calculate_mac, check_mac_equivalence
+from spg_client import exceptions
+from spg_client.utils import parse_xml, calculate_mac, check_mac_equivalence
 
 
 class SpgClient:

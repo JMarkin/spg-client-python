@@ -1,4 +1,4 @@
-from utils import is_pan_valid
+from spg_client.utils import is_pan_valid
 
 
 class Card:

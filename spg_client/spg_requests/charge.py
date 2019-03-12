@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from spg_client.spg_requests import BaseRequest
-from spg_client.responses import ChargeResponse
+from spg_client.spg_responses import ChargeResponse
 
 
 class Charge(BaseRequest):

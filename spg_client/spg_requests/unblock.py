@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from spg_client.responses import UnblockResponse
+from spg_client.spg_responses import UnblockResponse
 from spg_client.spg_requests import BaseRequest
 
 

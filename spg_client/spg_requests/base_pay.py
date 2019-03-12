@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from spg_client.responses import PayResponse
+from spg_client.spg_responses import PayResponse
 from .base import BaseRequest
 
 

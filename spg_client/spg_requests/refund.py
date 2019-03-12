@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from spg_client.responses import RefundResponse
+from spg_client.spg_responses import RefundResponse
 from spg_client.spg_requests.base import BaseRequest
 
 
