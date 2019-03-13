@@ -4,7 +4,41 @@ import hmac
 import sys
 from xml.etree import ElementTree as ET
 
-from spg_client.exceptions import InvalidMacError
+from spg_client.exceptions import InvalidMacError, InvalidPanError
+
+
+def dict_to_etree(d):
+    def _to_etree(d, root):
+        if not d:
+            pass
+        elif isinstance(d, str):
+            root.text = d
+        elif isinstance(d, dict):
+            for k, v in d.items():
+                assert isinstance(k, str)
+                if k.startswith('#'):
+                    assert k == '#text' and isinstance(v, str)
+                    root.text = v
+                elif k.startswith('@'):
+                    assert isinstance(v, str)
+                    root.set(k[1:], v)
+                elif isinstance(v, list):
+                    for e in v:
+                        _to_etree(e, ET.SubElement(root, k))
+                else:
+                    _to_etree(v, ET.SubElement(root, k))
+        else:
+            assert d == 'invalid type', (type(d), d)
+
+    assert isinstance(d, dict) and len(d) == 1
+    tag, body = next(iter(d.items()))
+    node = ET.Element(tag)
+    _to_etree(body, node)
+    return node
+
+
+def dict_to_xml_str(d: dict):
+    return ET.tostring(dict_to_etree(d))
 
 
 def parse_xml(string_content):
@@ -50,4 +84,7 @@ def is_pan_valid(pan):
             if digit > 9:
                 digit = digit - 9
         digits_output.append(digit)
-    return sum(digits_output) % 10 == 0
+    check = sum(digits_output) % 10 == 0
+    if not check:
+        raise InvalidPanError
+    return check

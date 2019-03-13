@@ -63,3 +63,4 @@ htmlcov
 # VS
 .vscode
 /.pytest_cache/
+/test.py
