@@ -18,7 +18,7 @@ class Card:
     CVC2ReasonCode (int): Константа "1", 1 цифра
     """
 
-    def __init__(self, pan, month, year, card_holder, secure_code,
+    def __init__(self, pan, month=None, year=None, card_holder=None, secure_code=None,
                  cvc2reason_code=1):
         self._pan = pan
         self.month = month
