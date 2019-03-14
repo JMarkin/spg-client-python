@@ -2,7 +2,7 @@
 from .base_response import BaseResponse
 
 
-class Status3dsResponse(BaseResponse):
+class EMoneyTransferResponse(BaseResponse):
     _fields = [
         'OrderId', 'Status', 'Success', 'MAC'
     ]

@@ -2,7 +2,7 @@ from .ack3ds_response import Ack3dsResponse
 from .base_response import BaseResponse
 from .block_response import BlockResponse
 from .charge_response import ChargeResponse
-from .emoney_response import Status3dsResponse
+from .emoney_response import EMoneyTransferResponse
 from .getstate_response import GetstateResponse
 from .pay_response import PayResponse
 from .recblockmake_response import RecBlockMakeResponse

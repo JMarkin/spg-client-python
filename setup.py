@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='rfi_client',
-    version='0.0.1',
+    version='0.0.2',
     install_requires=['requests'],
     description='Fork of client for RFI Partner API',
     long_description=open('README.md').read(),

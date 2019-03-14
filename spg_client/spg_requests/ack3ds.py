@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
-from spg_client.spg_responses import Ack3dsResponse
+import json
+from urllib.parse import unquote
+
 from spg_client.spg_requests import BaseRequest
+from spg_client.spg_responses import Ack3dsResponse
 
 
 class Ack3ds(BaseRequest):
@@ -14,7 +17,7 @@ class Ack3ds(BaseRequest):
 
     _mac_val_or_ignore_fields = []
 
-    def __init__(self, order_id:str or int, emitent_response:dict):
+    def __init__(self, order_id: str or int, emitent_response: dict):
         """
         Шаг 4 в 3ds
         Args:
@@ -34,5 +37,5 @@ class Ack3ds(BaseRequest):
     def _params(self):
         return {
             'OrderId': self.order_id,
-            'EmitentResponse': self.emitent_response,
+            'EmitentResponse': unquote(json.dumps(self.emitent_response)),
         }
