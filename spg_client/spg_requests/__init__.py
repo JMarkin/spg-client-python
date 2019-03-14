@@ -12,3 +12,4 @@ from .pay_transfer import PayTransfer
 from .refund import Refund
 from .servicepan_onetimetoken import ServicePanOneTimeToken
 from .unblock import Unblock
+from .emoney_transfer import EMoneyTransfer
