@@ -3,6 +3,9 @@ from spg_client.spg_requests import BasePay
 
 
 # одностадийный платеж - 'payment' - обычный платеж
+from spg_client.utils import ascii_or_translite
+
+
 class Pay(BasePay):
     pay_type = 'payment'
 
@@ -41,7 +44,7 @@ class Pay(BasePay):
         self.order_id = order_id
         self.amount = amount
         self.currency = currency
-        self.description = description
+        self.description = ascii_or_translite(description)
         self.recurrent_type = None
         self.recurrent_period = None
         self.custom_fields = None

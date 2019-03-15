@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from spg_client.spg_requests import BasePay
+from spg_client.utils import ascii_or_translite
 
 
 class PayTransfer(BasePay):  # одностадийный платеж - 'transfer'
@@ -16,7 +17,7 @@ class PayTransfer(BasePay):  # одностадийный платеж - 'transf
         self.order_id = order_id
         self.amount = amount
         self.currency = currency
-        self.description = description
+        self.description = ascii_or_translite(description)
         self.recurrent_type = None
         self.recurrent_period = None
         self.custom_fields = None

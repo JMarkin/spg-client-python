@@ -2,6 +2,7 @@
 from spg_client import Card
 from spg_client.spg_requests import BaseRequest
 from spg_client.spg_responses import EMoneyTransferResponse
+from spg_client.utils import ascii_or_translite
 
 
 class EMoneyTransfer(BaseRequest):
@@ -16,7 +17,7 @@ class EMoneyTransfer(BaseRequest):
 
     _mac_val_or_ignore_fields = []
 
-    def __init__(self, order_id: str or int, card: Card, amount: float, description:str,custom_field:str,phone:str):
+    def __init__(self, order_id: str or int, card: Card, amount: float, description:str='',custom_field:str='',phone:str=''):
         """
         Шаг 4 в 3ds
         Args:
@@ -51,7 +52,7 @@ class EMoneyTransfer(BaseRequest):
         self.order_id = order_id
         self.card = card
         self.amount = amount
-        self.description = description
+        self.description = ascii_or_translite(description)
         self.custom_field = custom_field
         self.phone = phone
 

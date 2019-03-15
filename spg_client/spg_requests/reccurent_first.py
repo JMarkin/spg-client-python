@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from spg_client.spg_requests import BasePay
+from spg_client.utils import ascii_or_translite
 
 
 class RecurrentFirst(BasePay):  # рекуррентный одностадийный платеж
@@ -15,7 +16,7 @@ class RecurrentFirst(BasePay):  # рекуррентный одностадий�
         self.order_id = order_id
         self.amount = amount
         self.currency = currency
-        self.description = description
+        self.description = ascii_or_translite(description)
         self.recurrent_type = recurrent_type
         self.recurrent_period = recurrent_period
         self.custom_fields = None

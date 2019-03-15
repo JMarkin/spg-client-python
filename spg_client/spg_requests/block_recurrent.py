@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from spg_client.spg_responses import BlockResponse
 from spg_client.spg_requests.base import BaseRequest
+from spg_client.utils import ascii_or_translite
 
 
 class BlockRecurrentFirst(BaseRequest):
@@ -59,7 +60,7 @@ class BlockRecurrentFirst(BaseRequest):
         self.amount = amount
         self.currency = currency
         self.order_id = order_id
-        self.description = description
+        self.description = ascii_or_translite(description)
         self.payment_type = payment_type
         self.recurrent_type = recurrent_type
         self.recurrent_period = recurrent_period
