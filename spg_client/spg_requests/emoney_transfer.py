@@ -8,7 +8,7 @@ from spg_client.utils import ascii_or_translite
 class EMoneyTransfer(BaseRequest):
     response_class = EMoneyTransferResponse
     method = 'POST'
-    path = '/emoney_transfer'
+    path = 'emoney_transfer'
 
     _mac_fields = [
         'ServiceId', 'OrderId', 'PAN', 'EMonth', 'EYear', 'Amount', 'Description', 'CustomFields',
@@ -17,7 +17,8 @@ class EMoneyTransfer(BaseRequest):
 
     _mac_val_or_ignore_fields = []
 
-    def __init__(self, order_id: str or int, card: Card, amount: float, description:str='',custom_field:str='',phone:str=''):
+    def __init__(self, order_id: str or int, card: Card, amount: float, description: str = None,
+                 custom_field: str = None, phone: str = None):
         """
         Шаг 4 в 3ds
         Args:
@@ -62,6 +63,7 @@ class EMoneyTransfer(BaseRequest):
             'PAN': self.card.pan,
             'EMonth': self.card.month,
             'EYear': self.card.year,
+            'Amount': self.amount,
             'Description': self.description,
             'CustomFields': self.custom_field,
             'Phone': self.phone,

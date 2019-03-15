@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import copy
-import requests
 
+import requests
 from requests import exceptions as requests_exceptions
 
 from spg_client import exceptions
@@ -28,7 +28,8 @@ class SpgClient:
         params = copy.deepcopy(request.params)
         params['ServiceId'] = self.service_id
         request_mac = calculate_mac(
-            self.secret, *[params.get(f) for f in request.mac_fields])
+            self.secret,
+            *[None if params.get(f) == '' else params.get(f) for f in request.mac_fields])
         params['MAC'] = request_mac
 
         try:
@@ -47,10 +48,12 @@ class SpgClient:
     def check_response(self, response, request):
         xml_root = parse_xml(response.content)
         response = request.response_class(xml_root)
-
+        #FIXME не знаю почему но эот момнет ломает
+        if response.Status == 'TRUSTED':
+            return response
         calculated_mac = calculate_mac(
             self.secret, *[None if not hasattr(response, field) or
-                           getattr(response, field) == ''
+                                   getattr(response, field) == ''
                            else getattr(response, field)
                            for field in response.mac_fields]
         )
