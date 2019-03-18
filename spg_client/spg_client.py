@@ -48,8 +48,8 @@ class SpgClient:
     def check_response(self, response, request):
         xml_root = parse_xml(response.content)
         response = request.response_class(xml_root)
-        #FIXME не знаю почему но эот момнет ломает
-        if response.Status == 'TRUSTED':
+        #FIXME не знаю почему но эnот момнет ломает
+        if hasattr(response, 'Status') and response.Status == 'TRUSTED':
             return response
         calculated_mac = calculate_mac(
             self.secret, *[None if not hasattr(response, field) or

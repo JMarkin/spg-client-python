@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 from spg_client import exceptions
 
-FIELDS_3DS_RESPONSE = ['ACSUrl', 'PaReq', 'ThreeDSKey']
+FIELDS_3DS_RESPONSE = ['Success', 'OrderId',
+                       'Operation',
+                       'ACSUrl', 'PaReq', 'ThreeDSKey',
+                       'TietoTransId'
+                       ]
 
 
 class BaseResponse(object):
@@ -9,20 +13,21 @@ class BaseResponse(object):
     # ставится
     _mac_ignore_fields = ['CustomForm']
     _fields: list
+    _mac_fields = []
 
     def __init__(self, root):
         if root.find('ErrMessage') is not None:
             raise exceptions.InvalidResponseError('{}\n ErrCode: {}'.format(
                 root.find('ErrMessage').text, root.find('ErrCode').text
-                )
+            )
             )
         # block, pay
         if root.find('Success').text == '3DS':
-            self._fields += FIELDS_3DS_RESPONSE
+            self._fields = FIELDS_3DS_RESPONSE + ['MAC']
 
-        # TODO
         if root.find('Success').text == '3DSCustomForm':
-            pass
+            self._fields += ['CustomForm', 'MAC']
+            self._mac_ignore_fields = []
 
         for field in self._fields:
             if root.find(field) is not None:
@@ -31,13 +36,12 @@ class BaseResponse(object):
                 value = None
             setattr(self, field, value)
 
-    # TEST
     @property
     def mac_fields(self):
 
         if getattr(self, 'Success') == '3DS':
-            self._mac_fields += FIELDS_3DS_RESPONSE
-            self._fields += FIELDS_3DS_RESPONSE
+            self._mac_fields = FIELDS_3DS_RESPONSE
+            self._fields = FIELDS_3DS_RESPONSE
 
         mac_fields = list(self._mac_fields)
 
